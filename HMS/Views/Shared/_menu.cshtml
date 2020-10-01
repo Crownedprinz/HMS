@@ -1,0 +1,17 @@
+﻿@{
+    HMS.Models.worksess worksess = (HMS.Models.worksess)Session["worksess"];
+
+}
+<div class="sidebar-collapse">
+    <ul class="nav" id="main-menu">
+        <li class="text-center">
+            <img src="~/img/find_user.png" class="user-image img-responsive" />
+        </li>
+        <li>
+            <a class="active-menu" href="~/Dashboard/Index"><i class="fa fa-dashboard fa-3x"></i>Dashboard</a>
+        </li>
+
+       @Html.Raw(@worksess.menu_option)
+    </ul>
+
+</div>

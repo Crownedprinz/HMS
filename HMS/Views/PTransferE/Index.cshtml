@@ -1,0 +1,212 @@
+﻿@model anchor1.Models.vw_collect 
+
+@{
+}
+
+
+@using (Html.BeginForm("index", "PTransfer", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    
+    @Html.AntiForgeryToken()    
+    @Html.ValidationSummary(true)
+
+        <p></p><p>
+            <input class="btn btn-info lgtime" type="submit"  name= "Command" value="Transfer Records" />
+        </p>
+
+    <fieldset>
+        <legend>tab_allow</legend>
+
+    <div class="container-fluid table-edit">
+    <div class="row">
+        <div class="col-sm-3 col-sm-text-right">Screen</div>
+        <div class="col-sm-3 ">
+            @*<select class = "form-control mypadding " id="tselect" name="ws_string0"><option></option></select>*@
+            @Html.DropDownListFor(model => model.ws_string0, @ViewBag.screen as SelectList, "", new { id = "tselect", @class = "form-control mypadding " })    
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 col-sm-text-right">Mode</div>
+        <div class="col-sm-8 myradioq " id="mode_type" >
+            @Html.RadioButtonFor(model => model.ws_string1, "I", new { id = "code_all" }) 
+                <label for="code_all">Import </label>  &nbsp;&nbsp;
+            @Html.RadioButtonFor(model => model.ws_string1, "O", new { id = "code_ded" })
+                <label for="code_ded"> Export </label>
+            @Html.ValidationMessageFor(model => model.ws_string1)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 col-sm-text-right">Transfer Layout</div>
+        <div class="col-sm-3  ">
+            @Html.DropDownListFor(model => model.ws_string2, @ViewBag.layout as SelectList, new { id = "tlayout" , @class = "form-control mypadding " })    
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 col-sm-text-right">File Type</div>
+        <div class="col-sm-8 myradioq  " id="file_type" >
+            @Html.RadioButtonFor(model => model.ws_string3, "E", new { id = "file_all" }) 
+                <label for="file_all">Excel File </label>  &nbsp;&nbsp;
+            @Html.RadioButtonFor(model => model.ws_string3, "F", new { id = "file_ded" })
+                <label for="file_ded"> Flat File </label>
+            @Html.ValidationMessageFor(model => model.ws_string3)
+        </div>
+    </div>
+    <div class="row import_name" >
+        <div class="col-sm-3 col-sm-text-right">Filename</div>
+        <div class="col-sm-8  "><input type="file" id="tfile1" name="tfile1" style="width : 500px" class="round-corners" /></div>
+    </div>
+
+        @Html.HiddenFor(m=> m.ws_string10,new{id="rtype1"})
+    <div class="row import_name" >
+        <div class="col-sm-3 col-sm-text-right">Sheet Name(Excel)</div>
+        <div class="col-sm-3  ">
+            @Html.TextBoxFor(model => model.ws_string4, new { @maxlength = "25", @class = "form-control mypadding " }) 
+        </div>
+    </div>
+
+    <div class="row" id="export_name">
+        <div class="col-sm-3 col-sm-text-right">File name</div>
+        <div class="col-sm-3 " >
+            @Html.TextBoxFor(model => model.ws_string9 , new { @maxlength="30", @class = "form-control mypadding " }) 
+        </div>
+    </div>
+
+    <div class="row" id="staff_row">
+        <div class="col-sm-3 col-sm-text-right" id="staff_lbl">Staff Number</div>
+        <div class="col-sm-2  "> 
+            @Html.TextBoxFor(model => model.ws_string5, new { @maxlength = "10" , @class = "form-control mypadding " }) 
+        </div>
+        <div class="col-sm-1 text-centre ">to</div>
+        <div class="col-sm-2  "> 
+            @Html.TextBoxFor(model => model.ws_string6, new { @maxlength = "10" , @class = "form-control mypadding " }) 
+        </div>
+    </div>
+    
+    <div class="row" id="code_row">
+        <div class="col-sm-3 col-sm-text-right" id="code_lbl">Code</div>
+        <div class="col-sm-2  "> 
+            @Html.TextBoxFor(model => model.ws_string7, new { @maxlength = "10" , @class = "form-control mypadding " }) 
+        </div>
+        <div class="col-sm-1  text-centre">to</div>
+        <div class="col-sm-2  "> 
+            @Html.TextBoxFor(model => model.ws_string8, new { @maxlength = "10" , @class = "form-control mypadding " }) 
+        </div>
+    </div>
+    <div class="row" id="overwrite1">
+        <div class="col-sm-3 col-sm-text-right">Overwrite Records?</div>
+        <div class="col-sm-2  mycheckq"> 
+            @Html.CheckBoxFor(model => Model.ws_bool0,new{@id="close_yesno"})
+                <label for="close_yesno" >
+                    @(Model.ws_bool0 ? "On" : "Off")
+                </label>  
+        </div>
+    </div>
+
+</div>
+
+        
+   </fieldset>
+}
+
+
+<div id="loader1" data-request-daily="@Url.Action("DailyList")"></div>
+<div id="loader2" data-request-daily2="@Url.Action("Daily2List")"></div>
+<div id="loader3" data-request-updatev="@Url.Action("update_view")"></div>
+<div id="loader1b" data-request-dailyb="@Url.Action("DailyListb","scriptcall")"></div>
+
+@section Scripts {
+
+<script>
+
+    //scrtrf();
+
+    $(function () {
+
+        $('#staff_row').hide();
+        $('#code_row').hide();
+        $('.import_name').hide();
+        $('#export_name').hide();
+        $('#overwrite1').hide();
+
+        $("#tselect").change(function () {
+            var URLext = $('#tselect').val();
+            var URLext1 = $('#rtype1').val();
+            var URL = $('#loader1').data('request-daily');
+            URL = $.trim(URL);
+            URLext = $.trim(URLext);
+            URL = URL + '01[]' + URLext1 + "[]" + URLext;
+            
+            $.ajax({
+                type: "Post",
+                url: URL,
+                error: function (xhr, status, error) {
+                    alert("Error: " + xhr.status + " - " + error + " - " + URL);
+                },
+                success: function (data) {
+                    var items = '';
+                    $.each(data, function (i, state) {
+                        items += "<option value='" + state.Value + "'>" + state.Text + "</option>";
+                    });
+                    $('#tlayout').html(items);
+                }
+            });
+
+            var URL = $('#loader1').data('request-daily');
+            URL = $.trim(URL);
+            URL = URL + '02[]' + URLext1 + "[]" + URLext;
+
+            $.ajax({
+                type: "Post",
+                url: URL,
+                error: function (xhr, status, error) {
+                    alert("Error: " + xhr.status + " - " + error + " - " + URL);
+                },
+                success: function (data) {
+                    $('#staff_row').hide();
+                    $('#code_row').hide();
+                    $.each(data, function (i, state) {
+                        if (state.Value == "staff" && state.Text != "") {
+                            $('#staff_lbl').html(state.Text);
+                            $('#staff_row').show();
+                        }
+
+                        if (state.Value == "code" && state.Text != "") {
+                            $('#code_lbl').html(state.Text);
+                            $('#code_row').show();
+                        }
+
+                    });
+                }
+            });
+
+
+
+        });
+
+        $("#mode_type input[name='ws_string1']").click(function () {
+            var radiob = $("input[name='ws_string1']:checked").val();
+            if (radiob == "I") {
+                $(".import_name").show();
+                $("#export_name").hide();
+                $("#overwrite1").show();
+            }
+            else {
+                $(".import_name").hide();
+                $("#export_name").show();
+                $("#overwrite1").hide();
+            };
+        });
+
+    });
+
+</script>
+}
+
+<div id="loading">
+    <div id="loadingcontent">
+        <p id="loadingspinner">
+            Pls wait...
+        </p>
+    </div>
+</div>
+

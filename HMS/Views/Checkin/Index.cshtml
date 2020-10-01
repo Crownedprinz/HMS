@@ -1,0 +1,82 @@
+﻿@model  IEnumerable<HMS.Models.vw_genlay>
+@using anchor1.Helpers
+@{
+    ViewBag.Title = "Check In";
+    HMS.Models.worksess worksess = (HMS.Models.worksess)Session["worksess"];
+    HMS.utilities.hutility util = new HMS.utilities.hutility();
+}
+
+
+<span>@*@Html.EncodedActionLink("CheckIn Guest", "Create", null, new { xy = 1 }, new { @class = "create_logo lgtime ", title = "New Record" })*@ </span>
+
+<div class="panel panel-default">
+   @Html.Partial("_errMessage",worksess)
+    <div class="panel-heading">
+        Check In
+        <span>@Html.EncodedActionLink("CheckIn Guest", "Create", null, new { pc = 1 }, new { title = "New Record" }) </span>
+    </div>
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover">
+
+                <thead>
+                    <tr>
+                        <th>Guest ID</th>
+                        <th>Name</th>
+                        <th>Room No</th>
+                        <th>Reserved Days</th>
+                        <th>Adults</th>
+                        <th>Children</th>
+                        <th>Check-In Date</th>
+                        <th>Check-In Time</th>
+                         <th>Check-OUt Date</th>
+                        <th>Total Amount</th>
+                       <th> Edit</th>
+                    <th> Delete</th>
+                        <th>Check-OUt</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        @if (@item.vwstring8 == "Y") { 
+                        <td>@item.vwint0--Reservation</td>
+                        }
+                        else {
+                            <td>@item.vwint0</td>
+                        }
+                        <td>@item.vwstring0</td>
+                        <td>@item.vwstring1</td>
+                        <td>@item.vwint3</td>
+                        <td>@item.vwint1</td>
+                        <td>@item.vwint2</td>
+                       <td>@util.date_out(@item.vwstring5)</td>
+                        <td>@item.vwstring7</td>
+                        <td>@util.date_out(@item.vwstring6)</td>
+                        <td class="numformat">@item.vwdecimal0</td>
+                        <td>
+                            @Html.EncodedActionLink("E", "Edit", null, new { key1 = @item.vwint0 }, new { @class = "btn btn-warning btn-xs glyphicon glyphicon-pencil" })
+                        </td>
+                        <td><span class="btn btn-danger btn-xs deleteitem" data-keyg="@item.vwint0"> <i class="glyphicon glyphicon-trash "></i> </span></td>
+                        <td>
+                            @Html.EncodedActionLink("O", "CheckOut",null, new { key1 = @item.vwint0, key2= @item.vwstring1 }, new { @class = "btn btn-warning btn-xs glyphicon glyphicon-pencil"})
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@if (!string.IsNullOrWhiteSpace(worksess.idrep))
+{
+@Html.Partial("_myDialogue", worksess);
+}
+@Html.Hidden("id_xhrt", "K")
+
+<div id="loader2" data-request-ajax2="@Url.Action("delete_list")"></div>
+@section Scripts {
+    <script>
+    </script>
+}

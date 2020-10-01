@@ -1,0 +1,33 @@
+﻿@model  HMS.Models.vw_genlay
+@{
+    HMS.Models.worksess worksess = (HMS.Models.worksess)Session["worksess"];
+    string ptype = worksess.temp7.ToString();
+}
+<div>
+    <div class="row">
+        <div class="col-sm-3 text-right">@worksess.temp1</div>
+        <div class="col-sm-2">
+            @Html.TextBoxFor(m => m.vwstring0, ViewBag.action_flag == "Create" ? (object)new { @class = "form-control mypadding", @maxlength = 10, data_val = "true", data_val_required = @worksess.temp1 + " is required " } : new { @disabled = "disabled", @class = "form-control mypadding" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-3 text-right">@worksess.temp2</div>
+        <div class="col-sm-5">
+            @Html.TextBoxFor(m => m.vwstring1, new { @class = "form-control mypadding", @maxlength = 50, data_val = "true", data_val_required = @worksess.temp2 + " is required " })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 text-right">@worksess.temp3</div>
+        <div class="col-sm-5">
+            @Html.TextBoxFor(m => m.vwstring2, new { @class = "form-control mypadding", @maxlength = 50 })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-3 text-right">@worksess.temp4</div>
+        <div class="col-sm-5">
+            @Html.TextBoxFor(m => m.vwstring3, new { @class = "form-control mypadding numformat", @maxlength = 30 })
+        </div>
+    </div>
+</div>

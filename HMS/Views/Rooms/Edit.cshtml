@@ -1,0 +1,68 @@
+﻿@model HMS.Models.vw_genlay
+@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="panel-body">
+    <form class="form-horizontal" role="form" method="post" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary()
+
+        @if (ViewBag.action_flag == "Edit")
+        {
+            <div class="opt-title1"> Edit Room</div>
+            @Html.Partial("_editButtons")
+        }
+        else
+        {
+            <div class="opt-title1"> Create Room</div>
+            @Html.Partial("_submitButtons")
+        }
+
+
+        @Html.Partial("ruum")
+
+        @Html.Hidden("id_xhrt", "K")
+    </form>
+</div>
+<div id="loader1" data-request-ajax1="@Url.Action("get_price")"></div>
+@section Scripts {
+    <script>
+            $(function () {
+
+                //$("#submit").hide();
+
+                $("#roomtype").change(function () {
+                    var URL = $('#loader1').data('request-ajax1');
+                    var URLext = $('#roomtype').val();
+                    URL = $.trim(URL);
+                    URLext = $.trim(URLext);
+
+                    URL = URL + "/" + URLext;
+                    $.ajax({
+                        url: URL,
+                        type: 'Post',
+                        error: function (xhr, status, error) {
+                            alert("Error: " + xhr.status + " - " + error + " - " + URL);
+                        },
+                        success: function (data) {  
+                            var tasks = '';
+                            $.each(data, function (i, state) {
+                                tasks = state.Text;
+                                if (state.Value == "typeprice") {
+                                    $("#tprice").val(tasks);
+                                }
+                                
+
+                            });
+
+                        }
+
+                    });
+                });
+
+                });
+
+    </script>
+    }
+

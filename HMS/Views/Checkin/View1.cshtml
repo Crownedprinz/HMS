@@ -1,0 +1,114 @@
+﻿@{
+    Layout = null;
+    HMS.Models.worksess worksess = (HMS.Models.worksess)Session["worksess"];
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viewer</title>
+
+
+    @*<script src="~/Scripts/jquery-2.2.3.min.js"></script>*@
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+    <link href="~/bootstraprep/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/site.css" rel="stylesheet" />
+    <link href="~/content/GrapeCity.ActiveReports.Viewer.Html.css" rel="stylesheet">
+
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <label>Export Selection :</label>
+            <div id="btnReport" class="btn-group">
+                <button id="ExportToXls" type="button" class="btn btn-default" disabled="disabled">Excel WorkBook</button>
+                <button id="ExportToPdf" type="button" class="btn btn-default" disabled="disabled">PDF Document</button>
+                <button id="ExportToRtf" type="button" class="btn btn-default" disabled="disabled">Word Document</button>
+                <button id="ExportToCsv" type="button" class="btn btn-default" disabled="disabled">Text Format</button>
+                @*                <button id="ExportToTiff" type="button" class="btn btn-default" disabled="true">Image</button>*@
+            </div>
+        </div>
+
+        <div id="viewerContainer"></div>
+
+    </div>
+
+    @Html.Hidden("filep", worksess.filep)
+    @Html.Hidden("namep", worksess.ptitle)
+
+
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/knockout-3.4.2.js"></script>
+    <script src="~/Scripts/GrapeCity.ActiveReports.Viewer.Html.min.js"></script>
+
+    <script type="text/javascript">
+
+    $(function () {
+        var filep = $("#filep").val();
+        var namep = $("#namep").val();
+
+        var viewer = GrapeCity.ActiveReports.Viewer(
+        {
+            element: '#viewerContainer',
+
+            reportService: {
+                url: '@Url.Content("~/ActiveReports.ReportService.asmx")'
+            },
+            uiType: 'desktop',
+
+            reportLoaded: function () {
+                reportsButtons.prop('disabled', false);
+                // disable export button if no report was selected
+            },
+
+            localeUri: '/Scripts/i18n/en.txt'
+        });
+
+        var reportOption = {
+            id: filep
+        };
+
+        viewer.option('report', reportOption);
+        viewer.option("availableExports", []);
+        var reportsButtons = $('#btnReport button');
+
+        // function downloads report from specified uri
+        var downloadReport = function (uri) {
+                window.location = uri;
+        };
+
+        // click handler
+        $('#ExportToPdf').bind('click', function (ev) {
+            viewer.export('Pdf', downloadReport, true, { FileName: namep });
+        });
+
+        $('#ExportToXls').bind('click', function (ev) {
+            viewer.export('Xls', downloadReport, true, { FileName: namep });
+        });
+
+        $('#ExportToRtf').bind('click', function (ev) {
+            viewer.export('Word', downloadReport, true, { FileName: namep });
+        });
+
+        $('#ExportToCsv').bind('click', function (ev) {
+            viewer.export('Xml', downloadReport, true, { FileName: namep });
+        });
+
+        $('#ExportToTiff').bind('click', function (ev) {
+            viewer.export('Image', downloadReport, true, { FileName: namep });
+        });
+
+
+    });
+
+    </script>
+
+
+</body>
+</html>

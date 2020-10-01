@@ -1,0 +1,39 @@
+﻿@model anchor1.Models.vw_collect 
+
+
+@using (Html.BeginForm()) {
+
+    @Html.AntiForgeryToken()    
+    @Html.ValidationSummary(true)
+
+       <p></p><p>
+            <input class="btn btn-info" type="submit" value="Process Selection" />
+        </p>
+
+    <fieldset>
+        <div class="container-fluid table-edit" >
+        
+            <div class="row">
+                <div class="col-sm-3 col-sm-text-right">
+                    <select  class = "form-control mypadding " id="pselect" name="ws_string0"></select>
+                    @*@Html.DropDownListFor(model => Model.ws_string0,ViewBag.selreport as SelectList )*@
+                </div>
+            </div>
+             
+        </div>
+
+    </fieldset>
+    
+    @Html.HiddenFor(m => Model.ws_string5, new { id = "rtype1" })
+}
+
+<div id="loader1b" data-request-dailyb="@Url.Action("DailyListb","scriptcall")"></div>
+
+@section Scripts {
+
+<script>
+    parep($("#rtype1").val());
+
+</script>
+}
+

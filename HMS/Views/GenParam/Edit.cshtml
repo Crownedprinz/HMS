@@ -1,0 +1,30 @@
+﻿@model  HMS.Models.vw_genlay
+@{
+    HMS.Models.worksess worksess = (HMS.Models.worksess)Session["worksess"];
+    ViewBag.Title = "General";
+
+    string plabel = ViewBag.plabel;
+}
+
+<div class="panel-body">
+    <form class="form-horizontal" role="form" method="post" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary()
+        <span class="opt-title1">@worksess.ptitle</span>
+    <br />
+    @if (ViewBag.action_flag == "Edit")
+    {
+        <div class="opt-title1"> Edit</div>
+        @Html.Partial("_editButtons")
+    }
+    else
+    {
+        <div class="opt-title1"> Create </div>
+        @Html.Partial("_submitButtons")
+    }
+    @Html.Partial("Parac")
+
+    @Html.HiddenFor(m => m.vwstring0)
+    @Html.Hidden("id_xhrt", "K")
+</form>
+    </div>

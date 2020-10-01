@@ -1,0 +1,97 @@
+﻿@model HMS.Models.vw_genlay
+@{
+    ViewBag.Title = "cus";
+}
+
+<div>
+            <div class="row">
+                    @if (ViewBag.action_flag == "Edit")
+                    {
+                        <div class="col-sm-3 text-right">Customer ID</div>
+                        <div class="col-sm-3">
+                            @Html.TextBoxFor(m => m.vwint0, new { @disabled = "disabled", @maxlength = 10 })
+                        </div>
+                    }
+               
+            </div>
+    <div class="row">
+        <div class="col-sm-3 text-right">Title</div>
+        <div class="col-sm-3">
+            @Html.DropDownListFor(m => m.vwstring11, ViewBag.ftitle as SelectList,"select", new { @class = "form-control mypadding"})
+            @Html.ValidationMessageFor(m => m.vwstring11)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 text-right">Customer Name</div>
+        <div class="col-sm-3">
+            @Html.TextBoxFor(m => m.vwstring0, new { @class = "form-control mypadding ", maxlength = 20, data_val = "true", data_val_required = "Customer Name is required" })
+            @Html.ValidationMessageFor(m => m.vwstring0)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 text-right">Surname</div>
+        <div class="col-sm-3">
+            @Html.TextBoxFor(m => m.vwstring1, new { @class = "form-control mypadding ", maxlength = 20, data_val = "true", data_val_required = "Customer SurName is required" })
+            @Html.ValidationMessageFor(m => m.vwstring1)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 text-right">Address</div>
+        <div class="col-sm-3">
+            @Html.TextBoxFor(m => m.vwstring2, new { @class = "form-control mypadding ", maxlength = "50" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-3 text-right">Email</div>
+        <div class="col-sm-3">
+            @Html.TextBoxFor(m => m.vwstring3, new { @class = "form-control mypadding ", maxlength = "50" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 text-right">Phone</div>
+        <div class="col-sm-3">
+            @Html.TextBoxFor(m => m.vwstring4, new { @class = "form-control mypadding ", maxlength = "15", data_val = "true", data_val_required = "Phone Number is required" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 text-right">Passport Number</div>
+        <div class="col-sm-3">
+            @Html.TextBoxFor(m => m.vwstring5, new { @class = "form-control mypadding ", maxlength = 15 })
+        </div>
+    </div>
+    <div class="row ">
+        <div class="col-sm-3 text-right">Gender</div>
+        <div class="col-sm-7 myradioq">
+            @Html.RadioButtonFor(m => m.vwstring6, "M", new { @id = "yes" })
+            <label for="yes">Male</label>
+            @Html.RadioButtonFor(m => m.vwstring6, "F", new { @id = "no" })
+            <label for="no">Female</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 text-right">City</div>
+        <div class="col-sm-3">
+            @Html.TextBoxFor(m => m.vwstring7, new { @class = "form-control mypadding ", maxlength = "20" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 text-right">State</div>
+        <div class="col-sm-3">
+            @Html.TextBoxFor(m => m.vwstring8, new { @class = "form-control mypadding ", maxlength = "20" })
+        </div>
+    </div>
+    <div class="row ">
+        <div class="col-sm-3 text-right">Country</div>
+        <div class="col-sm-3">
+            @Html.DropDownListFor(m => m.vwstring9, ViewBag.country as SelectList, "Select", new { @class = "form-control mypadding", id = "con", data_val = "true", data_val_required = "Please Select a Country" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 text-right">Nationality</div>
+        <div class="col-sm-3">
+            @Html.TextBoxFor(m => m.vwstring10, new { @class = "form-control mypadding ", maxlength = "20" })
+        </div>
+    </div>
+</div>
+

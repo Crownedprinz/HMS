@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "Sign Out";
+    Layout = null;
+    string byen = "";
+    if (ViewBag.byename != null)
+    {
+        byen = (string)ViewBag.byename;
+    }
+}
+
+    @Styles.Render("~/dataTables/bundles/cssbundle")
+    @Styles.Render("~/Content/css")
+
+
+<h1>&nbsp;</h1>
+<P class="text-centre">
+    <span class="logoname"> <marquee behavior="alternate" class="marq1 ">
+<img src="~/img/company.png" /></marquee> </span>
+
+</p>
+
+<div class="text-center">
+<p class="byemess">Thank you @byen, You are now logged out. </p>
+
+<P class="byemess">Have a nice day ! </P>
+    <p></p>
+    <a href="~/home"><span class="relogin-text">Login </span></a>
+    </div>
+
+    @section Scripts {
+
+        }

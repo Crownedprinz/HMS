@@ -1,0 +1,72 @@
+﻿sidebar=侧边栏
+toc=目录
+tocfull=目录
+firstPage=第一页
+lastPage=最后页
+prevPage=前一页
+nextPage=后一页
+print=打印
+backToParent=返回上级报表
+params=参数
+saveas=另存为
+	
+pdfDocument=PDF文件
+wordDocument=Word文件
+imageFile=图片文件
+mhtDocument=Mht文件
+excelWorkbook=Excel文件
+
+yes=是
+no=否
+true=True
+false=False
+null=空
+null-label=空值
+on=打开
+off=关闭
+selectall=(全选)
+enterValue=输入值
+clearAllOptions=重置
+
+back=返回
+refreshReport=查看报表
+
+search=查找
+matchCase=大小写敏感
+wholePhrase=全字匹配
+more=更多...
+noResults=没有结果
+clear=清空
+findLabel=查找:
+
+errorPane.Details=显示明细
+errorPane.HideDetails=隐藏明细
+errorPane.DismissAll=全部隐藏
+errorPane.ErrorPaneTitle=发生了错误
+
+printing.title=打印
+printing.alt=该浏览器并不支持PDF直接打印，请下载后打印: {0}.
+printing.downloadPDF=下载文件
+
+# errors
+error.CannotExport=不能导出，请关闭浏览器的禁止弹出窗口功能
+error.ExpectValue=必填项
+error.ValidationFailed=验证失败
+error.HasOutstandingDependencies=包含强依赖
+error.ExpectNumericValue=不是数字值
+error.ExpectDateValue=非法日期值
+error.NotSupported=不支持该操作.
+error.ReportNotFound=不能打开报表 '{0}'.
+error.InvalidReportToken=无效的报表Token.
+error.InvalidDocumentToken=无效的文档Token.
+error.RequestFailed=请求失败.
+error.RequestRejected=请求被拒绝.
+error.RequestCancelled=请求被取消.
+error.InvalidRequestId=无效的请求 id.
+error.InvalidDrillthroughLink=无效的钻取链接 '{0}'.
+error.InvalidDrillthroughParameters=无效的钻取参数.
+error.InvalidResponse=无效的相应.
+error.InvalidParameters=无效的报表参数.
+error.DocumentNotInCache=该文件未被缓存，请刷新报表 
+error.JsVersionsMismatch= 文件 GrapeCity.ActiveReports.Viewer.Html.js 或 GrapeCity.ActiveReports.Viewer.Html.min.js 的版本与您当前安装的ActiveReports版本不一致，请更新你项目中使用的该文件
+error.InvalidSharedDataSource=不能加载共享数据源 '{0}'.

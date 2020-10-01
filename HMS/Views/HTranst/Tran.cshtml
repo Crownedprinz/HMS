@@ -1,0 +1,190 @@
+﻿@using anchor1.Helpers
+@model  HMS.Models.vw_genlay
+
+@{
+    HMS.Models.worksess worksess = (HMS.Models.worksess)Session["worksess"];
+    HMS.Models.vw_genlay glayhead = (HMS.Models.vw_genlay)ViewBag.x2;
+    string cr_flag = ViewBag.action_flag;
+    //string ptype = worksess.temp0.ToString();
+}
+
+<div class="container-fluid">
+    <div class="row well">
+        <div class="row ">
+            <div class="col-sm-2 text-right">  Bill No </div>
+            <div class="col-sm-2"> @Html.TextBoxFor(m => glayhead.vwstrarray1[0], new { @class = "form-control mypadding readonly-color", @readonly = "readonly" })</div>
+            <div class="col-sm-2 text-right"> Bill Date</div>
+            <div class="col-sm-2"> @Html.TextBoxFor(m => glayhead.vwstrarray1[1], new { @class = "form-control mypadding readonly-color", @readonly = "readonly" })</div>
+            <div class="col-sm-2  text-right"> Room No</div>
+            <div class="col-sm-2"> @Html.TextBoxFor(m => glayhead.vwstrarray1[2], new { @class = "form-control mypadding readonly-color", @readonly = "readonly" })</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2  text-right"> Guest ID</div>
+            <div class="col-sm-2"> @Html.TextBoxFor(m => glayhead.vwstrarray1[3], new { @class = "form-control mypadding readonly-color", @readonly = "readonly" })</div>
+            <div class="col-sm-2  text-right"> Guest Name</div>
+            <div class="col-sm-2"> @Html.TextBoxFor(m => glayhead.vwstrarray1[4], new { @class = "form-control mypadding readonly-color", @readonly = "readonly" })</div>
+        </div>
+
+    </div>
+    <div class="row">
+        @if (cr_flag.IndexOf("Header") > 0)
+        {
+
+            <div class="row ">
+                <div class="col-sm-3 text-right ">Bill No </div>
+                <div class="col-sm-3">
+                    @Html.TextBoxFor(m => m.vwint0, new { @class = "form-control mypadding", data_val = "true", data_val_required = "Bill no is required" })
+                </div>
+            </div>
+            <div class="row"  id="click">
+                <div class="col-sm-3 text-right">Guest Order?</div>
+                <div class="col-sm-3 myradioq">
+                    @Html.RadioButtonFor(m => m.vwstring14, "Y", new { @id = "yesclick" })
+                    <label for="yes" class="myradio">Yes</label>
+                    @Html.RadioButtonFor(m => m.vwstring14, "N", new { @id = "noclick" })
+                    <label for="no" class="myradio"> No</label>
+                </div>
+            </div>
+             
+
+            <div class="row " id="click1">
+                <div class="col-sm-3 text-right">Guest Id</div>
+                <div class="col-sm-3">
+                    @Html.DropDownListFor(m => m.vwint1, ViewBag.guestid as SelectList, "", new { @class = "form-control mypadding ", data_val = "true", data_val_required = "Guest is required" })
+                </div>
+            </div>
+
+            <div class="row ">
+                <div class="col-sm-3  text-right"> Transaction Date </div>
+                <div class="col-sm-2">
+                    @Html.TextBoxFor(m => m.vwstrarray0[0], new { @class = "form-control mypadding datet", @maxlength = "10", @id = "id_transdate", data_val = "true", data_val_required = "Transaction Date is required" })
+                </div>
+            </div>
+            if (ViewBag.action_flag == "CreateHeader")
+            {
+                <div class="col-sm-2 col-sm-offset-3">
+                    <button type="submit" class="btn btn-success valshow " name="commandn" value="headsub" style="width:150px" >Create New Orders</button>
+                </div>
+                <div class="col-sm-2 ">
+                    <button type="reset" class="btn btnextra" style="width:150px">Cancel</button>
+                </div>
+            }
+            else if (ViewBag.action_flag == "EditHeader")
+            {
+                <div class="col-sm-9 col-sm-offset-3">
+                    <button type="submit" class="btn btn-success valshow " name="commandn" value="headsub" style="width:150px">Update</button>
+                </div>
+            }
+        }
+        else
+        {
+            <div id="details">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#tab1" data-toggle="tab">Food Details</a></li>
+                </ul>
+                <br />
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab1">
+                        <div class="row ">
+                            <div class="col-sm-3 text-right">Select Options</div>
+                            <div class="col-sm-7 myradioq">
+                                @Html.RadioButtonFor(m => m.vwstring6, "F", new {@id="food" })
+                                <label for="yes">Food</label>
+                                @Html.RadioButtonFor(m => m.vwstring6, "D", new {@id = "drinks" })
+                                <label for="no">Drinks</label>
+                            </div>
+                        </div>
+
+                        <div class="row ">
+                            <div class="col-sm-3 text-right "> Food Name  </div>
+                            <div class="col-sm-3">
+                                @Html.DropDownListFor(m => m.vwstring1, ViewBag.item as SelectList, "", new { @class = "form-control mypadding fcalc", @id = "item_id", data_val = "true", data_val_required = "Item ID should be selected" })
+                            </div>
+
+                        </div>
+                        <div class="row ">
+                            <div class="col-sm-3 text-right"> Rate </div>
+                            <div class="col-sm-5">
+                                @Html.TextBoxFor(m => m.vwdecimal5, new { @class = "form-control mypadding numformat fcalc", @id = "item_rate" })
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-sm-3 text-right "> Transaction Date  </div>
+                            <div class="col-sm-2">
+                                @Html.TextBoxFor(m => m.vwstring3, new { @class = "form-control datet mypadding", @maxlength = "10", data_val = "true", data_val_required = "Transaction Date is required" })
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-sm-3 text-right "> Quantity </div>
+                            <div class="col-sm-3">
+                                @Html.TextBoxFor(m => m.vwint1, new { @class = "form-control  mypadding fcalc", @maxlength = "10", @id = "quant",data_val = "true", data_val_required = "Quantity is required" })
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-sm-3 text-right ">Discount per </div>
+                            <div class="col-sm-3">
+                                @Html.TextBoxFor(m => m.vwdecimal6, new { @class = "form-control  mypadding", @id = "item_discp", @readonly = "readonly", @maxlength = "10" })
+                            </div>
+                            @*@Html.HiddenFor(m => m.vwdecimal6)*@
+                        </div>
+                        <div class="row ">
+                            <div class="col-sm-3 text-right ">Discount Flat </div>
+                            <div class="col-sm-3">
+                                @Html.TextBoxFor(m => m.vwdecimal7, new { @class = "form-control numformat  mypadding", @id = "item_disc", @readonly = "readonly", @maxlength = "10" })
+                            </div>
+                            @*@Html.HiddenFor(m => m.vwdecimal7)*@
+                        </div>
+                        <div class="row ">
+                            <div class="col-sm-3 text-right ">Discount Amount</div>
+                            <div class="col-sm-3">
+                                @Html.TextBoxFor(m => m.vwdecimal8, new { @class = "form-control numformat   mypadding", @id = "item_disca", @readonly = "readonly", @maxlength = "10" })
+                            </div>
+                            @* @Html.HiddenFor(m => m.vwdecimal8)*@
+                        </div>
+
+                        <div class="row ">
+                            <div class="col-sm-3 text-right "> Total Amount  </div>
+                            <div class="col-sm-2">
+                                @Html.TextBoxFor(m => m.vwdecimal9, new { @class = "form-control numformat mypadding", @id = "total_amt", @readonly = "readonly" })
+                            </div>
+                            @*@Html.HiddenFor(m => m.vwdecimal9)*@
+                        </div>
+                    </div>
+
+                </div>
+
+                <br />
+
+                @if (ViewBag.action_flag == "CreateDetails")
+                {
+                    <div class="col-sm-2 col-sm-offset-3">
+                        <button type="submit" class="btn btn-success valshow " name="commandn" value="detailsub" style="width:150px">Create New Entry</button>
+                    </div>
+                    <div class="col-sm-2 ">
+                        @Html.EncodedActionLink("Cancel", "CreateDetails", null, new { xy = "1" }, new { @class = "btn  btn-primary", @style = " width : 150px; " })
+                    </div>
+                }
+                else if (ViewBag.action_flag == "EditDetails")
+                {
+                    <div class="col-sm-2 col-sm-offset-3">
+                        <button type="submit" class="btn btn-success valshow " name="commandn" value="detailsub" style="width:150px">Update Entry</button>
+                    </div>
+                    <div class="col-sm-2 ">
+                        @Html.EncodedActionLink("Cancel", "CreateDetails", null, new { xy = "1" }, new { @class = "btn btn-primary ", @style = " width : 150px; " })
+                    </div>
+                    <div class="col-sm-2 ">
+                        <button type="button" class="btn btn-danger valshow" id="id_delete" style="width:150px">Delete Record</button>
+                    </div>
+                }
+
+                <br />
+                <hr />
+                @Html.Partial("_list", (IEnumerable<HMS.Models.vw_genlay>)ViewBag.x1)
+                @if (!string.IsNullOrWhiteSpace(worksess.idrep))
+                {
+                    @Html.Partial("_myDialogue", worksess);
+                }
+            </div>
+        }
+    </div>
+</div>

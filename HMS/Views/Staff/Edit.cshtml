@@ -1,0 +1,32 @@
+﻿@model HMS.Models.vw_genlay
+@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="panel-body">
+    <form class="form-horizontal" role="form" method="post" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary()
+
+        @if (ViewBag.action_flag == "Edit")
+        {
+            <div class="opt-title1"> Edit Staff</div>
+            @Html.Partial("_editButtons")
+        }
+        else
+        {
+            <div class="opt-title1"> Create Staff</div>
+            @Html.Partial("_submitButtons")
+        }
+
+
+        @Html.Partial("stf")
+
+        @Html.HiddenFor(m => m.vwint0)
+        @Html.Hidden("id_xhrt", "K")
+    </form>
+</div>
+@section Scripts{
+    <script>
+    </script>
+}

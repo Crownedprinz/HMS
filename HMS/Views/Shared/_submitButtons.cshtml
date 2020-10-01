@@ -1,0 +1,9 @@
+﻿@using anchor1.Helpers;
+
+<button type="submit" class="btn btn-success btn-default tabvalid" style="width:150px" id="sub">Submit</button>
+&nbsp;&nbsp;&nbsp;
+@Html.EncodedActionLink("Back To List", "index", null, new { pc = "1" }, new { @class = "btn btn-primary btn-default ", @style = " width : 150px; " })
+&nbsp;&nbsp;&nbsp;
+<button type="reset" class="btn btn-primary" style="width:150px" >Cancel</button>
+<br />
+<hr />

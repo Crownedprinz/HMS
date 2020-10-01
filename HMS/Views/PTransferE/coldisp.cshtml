@@ -1,0 +1,32 @@
+﻿@{
+    HMS.Models.worksess worksess = (HMS.Models.worksess)Session["worksess"];
+    ViewBag.Title = "View Report";
+}
+<span class="opt-title1">View Report - @worksess.ptitle</span>
+<div id="report1"></div>
+
+<div id="loader1" data-request-daily="@Url.Action("DailyList1")"></div>
+
+
+@Html.Hidden("webcallp", worksess.temp5)
+@Html.Hidden("viewflag", worksess.viewflag)
+@Html.Hidden("ptitle", worksess.ptitle)
+
+
+@section Scripts {
+
+<script>
+    $.fn.dataTable.Buttons.swfPath = '../../Content/swf/flashExport.swf'
+
+
+
+</script>
+
+   <script type="text/javascript" src="@Url.Content("~/Scripts/pcoldisp.js")"></script>
+
+    }
+
+
+
+    
+ 

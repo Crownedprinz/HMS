@@ -1,0 +1,197 @@
+﻿@model  HMS.Models.vw_genlay
+@using anchor1.Helpers;
+@{
+    HMS.Models.worksess worksess = (HMS.Models.worksess)Session["worksess"];
+    HMS.Models.queryhead qheader = (HMS.Models.queryhead)Session["qheader"];
+    ViewBag.Title = "Ordering";
+}
+
+<div class="panel-body">
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary()
+        <span class="opt-title1"> Ordering  </span>
+        @Html.EncodedActionLink("Back To List", "index", null, new { pc = "" }, new { @class = "btn btn-primary btn-default ", @style = " width : 150px; " })
+        <span>&nbsp; &nbsp; &nbsp;</span>
+        if (qheader != null) { 
+        @Html.EncodedActionLink("Print", "print_receipt", null, new { key1 = qheader.intquery0 }, new { @class = "btn btn-success btn-default", @style = " width : 150px; " })
+        }
+        <br />
+        <br />
+
+        @Html.Partial("Tran")
+
+
+        @Html.HiddenFor(m => m.vwint2)
+        @Html.Hidden("id_xhrt", "S", new { id = "id_xhrt" })
+
+    }
+</div>
+<div id="loader1" data-request-ajax1="@Url.Action("get_amounts")"></div>
+<div id="loader2" data-request-ajax2="@Url.Action("calc_amounts")"></div>
+<div id="loader8" data-request-ajax8="@Url.Action("get_items")"></div>
+<div id="loader4" data-request-ajax4="@Url.Action("get_items")"></div>
+<div id="loader2" data-request-ajax2="@Url.Action("delete_list")"></div>
+<div id="loader5" data-request-ajax5="@Url.Action("delete_detail")"></div>
+
+
+@section Scripts {
+    <script>
+        $(function () {
+
+            $("#item_id").change(function () {
+                var URL = $('#loader1').data('request-ajax1');
+                var URLext = $('#item_id').val();
+                var ratea = 0;
+                URL = $.trim(URL);
+                URLext = $.trim(URLext);
+
+                URL = URL + "/" + URLext;
+                $.ajax({
+                    url: URL,
+                    type: 'Post',
+                    error: function (xhr, status, error) {
+                        alert("Error: " + xhr.status + " - " + error + " - " + URL);
+                    },
+                    success: function (data) {
+                        var tasks = '';
+                        $.each(data, function (i, state) {
+                            tasks = state.Text;
+                            if (state.Value == "item_rate") {
+                                $("#item_rate").val(tasks);
+                                ratea = tasks;
+                                $("#item_rate").autoNumeric("update");
+                                var tempval = 0
+                                var disc = $("#item_disc").val()
+                                var discp = $("#item_discp").val()
+                                if (disc != 0 || discp != 0) {
+                                    if (disc == 0)
+                                        tempval = ratea * parseFloat(($("#quant").val()).replace(/,/g, '')) * discp;
+                                    else
+                                        tempval = ratea * parseFloat(($("#quant").val()).replace(/,/g, '')) * disc;
+
+
+                                } else
+                                    tempval = ratea * parseFloat(($("#quant").val()).replace(/,/g, ''));
+                                $("#total_amt").val(tempval);
+                                $("#total_amt").autoNumeric("update");
+
+                            }
+                            if (state.Value == "item_disc") {
+                                $("#item_disc").val(tasks);
+                                $("#item_disc").autoNumeric("update");
+                            }
+                            if (state.Value == "item_discp") {
+                                $("#item_discp").val(tasks);
+                            }
+
+                        });
+
+                    }
+
+                });
+               
+
+
+            });
+
+            $("#quant").change(function () {
+                var tempval = 0
+                var disc = $("#item_disc").val()
+                var discp = $("#item_discp").val()
+                if (disc != 0 || discp != 0) {
+                    if (disc == 0)
+                        tempval = parseFloat(($("#item_rate").val()).replace(/,/g, '')) * parseFloat(($("#quant").val()).replace(/,/g, '')) * discp;
+                    else
+                        tempval = parseFloat(($("#item_rate").val()).replace(/,/g, '')) * parseFloat(($("#quant").val()).replace(/,/g, '')) * disc;
+
+
+                } else
+                    tempval = parseFloat(($("#item_rate").val()).replace(/,/g, '')) * parseFloat(($("#quant").val()).replace(/,/g, ''));
+                $("#total_amt").val(tempval);
+                $("#total_amt").autoNumeric("update");
+
+
+            });
+            $("#item_rate").change(function () {
+                var tempval = 0
+                var disc = $("#item_disc").val()
+                var discp = $("#item_discp").val()
+                if (disc != 0 || discp != 0) {
+                    if (disc == 0)
+                        tempval = parseFloat(($("#item_rate").val()).replace(/,/g, '')) * parseFloat(($("#quant").val()).replace(/,/g, '')) * discp;
+                    else
+                        tempval = parseFloat(($("#item_rate").val()).replace(/,/g, '')) * parseFloat(($("#quant").val()).replace(/,/g, '')) * disc;
+
+
+                } else
+                    tempval = parseFloat(($("#item_rate").val()).replace(/,/g, '')) * parseFloat(($("#quant").val()).replace(/,/g, ''));
+                $("#total_amt").val(tempval);
+                $("#total_amt").autoNumeric("update");
+            });
+
+        });
+        
+
+        $(document).ready(function () {
+         
+            $("#yesclick").click(function () {
+                $("#click1").show();
+            });
+            $("#noclick").click(function () {
+                $("#click1").hide();
+            });
+            $("#food").change(function () {
+                var URL = $('#loader8').data('request-ajax8');
+                var URLext = $('#food').val();
+                URL = $.trim(URL);
+                URLext = $.trim(URLext);
+                URL = URL + "/" + URLext;
+
+                $.ajax({
+                    type: "Post",
+                    url: URL,
+                    error: function (xhr, status, error) {
+                        alert("Error: " + xhr.status + " - " + error + " - " + URL);
+                    },
+                    success: function (data) {
+                        var items = "<option></option>";
+                        $.each(data, function (i, state) {
+                            items += "<option value='" + state.Value + "'>" + state.Text + "</option>";
+                        });
+                        $('#item_id').html(items);
+                    }
+
+                });
+            });
+            $("#drinks").change(function () {
+                var URL = $('#loader4').data('request-ajax4');
+                var URLext = $('#drinks').val();
+                URL = $.trim(URL);
+                URLext = $.trim(URLext);
+                URL = URL + "/" + URLext;
+
+                $.ajax({
+                    type: "Post",
+                    url: URL,
+                    error: function (xhr, status, error) {
+                        alert("Error: " + xhr.status + " - " + error + " - " + URL);
+                    },
+                    success: function (data) {
+                        var items = "<option></option>";
+                        $.each(data, function (i, state) {
+                            items += "<option value='" + state.Value + "'>" + state.Text + "</option>";
+                        });
+                        $('#item_id').html(items);
+                    }
+
+                });
+            });
+     });
+
+    </script>
+
+}
+
+

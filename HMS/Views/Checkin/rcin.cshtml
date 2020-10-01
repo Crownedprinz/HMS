@@ -1,0 +1,196 @@
+﻿    @model HMS.Models.vw_genlay
+@{
+    ViewBag.Title = "Check-Ins";
+}
+
+
+<div>
+    <div class="row">
+        @if (ViewBag.action_flag == "Edit")
+        {
+            <div class="col-sm-3 text-right">Guest ID</div>
+            <div class="col-sm-3">
+                @Html.TextBoxFor(m => m.vwint0, new { @disabled = "disabled", @maxlength = 10 })
+            </div>
+        }
+    </div>
+
+    <div class="row ">
+        <div class="col-sm-3 text-right "> Existing Customer ID</div>
+        <div class="col-sm-4">
+            @Html.DropDownListFor(m => m.vwstring10, ViewBag.customer as SelectList, "Select", new { @class = "form-control mypadding  ", id = "id_cust" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 text-right">Titles</div>
+        <div class="col-sm-3">
+                @Html.DropDownListFor(m => m.vwstring11, ViewBag.ftitle as SelectList, "select", new { @class = "form-control mypadding",@id="id_titles" })
+                @Html.ValidationMessageFor(m => m.vwstring11)
+            </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-3 text-right">First Name</div>
+        <div class="col-sm-3">
+            @Html.TextBoxFor(m => m.vwstring0, new { @class = "form-control mypadding ",@id="fname", maxlength = 20, data_val = "true", data_val_required = "Customer Name is required" })
+            @Html.ValidationMessageFor(m => m.vwstring0)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 text-right">Surname</div>
+        <div class="col-sm-3">
+            @Html.TextBoxFor(m => m.vwstring1, new { @class = "form-control mypadding ", @id = "lname", maxlength = 20})
+            @Html.ValidationMessageFor(m => m.vwstring1)
+        </div>
+    </div>
+
+    <div class="row ">
+        <div class="col-sm-3 text-right">Gender</div>
+        <div class="col-sm-7 myradioq">
+            @Html.RadioButtonFor(m => m.vwstring9, "M", new { @id = "yes" })
+            <label for="yes">Male</label>
+            @Html.RadioButtonFor(m => m.vwstring9, "F", new { @id = "no" })
+            <label for="no">Female</label>
+        </div>
+    </div>
+    <div class="row ">
+        <div class="col-sm-3 text-right">Adults</div>
+        <div class="col-sm-3">
+            @Html.TextBoxFor(m => m.vwint1, new { @class = "form-control mypadding ", maxlength = 20, data_val = "true"})
+            @Html.ValidationMessageFor(m => m.vwint1)
+        </div>
+    </div>
+    <div class="row ">
+        <div class="col-sm-3 text-right">Children</div>
+        <div class="col-sm-3">
+            @Html.TextBoxFor(m => m.vwint2, new { @class = "form-control mypadding ", maxlength = 20, data_val = "true"})
+            @Html.ValidationMessageFor(m => m.vwint2)
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-sm-3 text-right">ID Type</div>
+        <div class="col-sm-3">
+            @Html.DropDownListFor(m => m.vwstring8, ViewBag.idType as SelectList, "select", new { @class = "form-control mypadding" })
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-sm-3 text-right">ID Number</div>
+        <div class="col-sm-3">
+            @Html.TextBoxFor(m => m.vwstring2, new { @class = "form-control mypadding ", maxlength = 15 })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 text-right">Address</div>
+        <div class="col-sm-3">
+            @Html.TextBoxFor(m => m.vwstring3, new { @class = "form-control mypadding ", @id="caddress", maxlength = "50" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 text-right">phone number</div>
+        <div class="col-sm-3">
+            @Html.TextBoxFor(m => m.vwstring4, new { @class = "form-control mypadding ", @id = "cphone", maxlength = "30" })
+        </div>
+    </div>
+   
+        <div class="row">
+
+            <div class="col-sm-3 text-right">Payment Type</div>
+            <div class="col-sm-3">
+                @Html.DropDownListFor(m => m.vwstring12, ViewBag.pmtype as SelectList, "select", new { @class = "form-control mypadding" })
+            </div>
+
+        </div>
+
+        <div class="row ">
+            <div class="col-sm-3 text-right">Early Checkin?</div>
+            <div class="col-sm-7 myradioq">
+                @Html.RadioButtonFor(m => m.vwstring13, "Y", new { @id = "yes" })
+                <label for="yes">Yes</label>
+                @Html.RadioButtonFor(m => m.vwstring13, "N", new { @id = "no" })
+                <label for="no">No</label>
+            </div>
+        </div>
+    <div class="row">
+        <div class="col-sm-3 text-right">Select Room</div>
+        <div class="col-sm-3">
+            @Html.DropDownListFor(m => m.vwstring5, ViewBag.selectroom as SelectList, "select", new { @class = "form-control mypadding", @id= "idroom", data_val = "true", data_val_required = "Please Select a Room" })
+            @Html.ValidationMessageFor(m => m.vwstring5)
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-sm-3 text-right">Amount</div>
+        <div class="col-sm-3">
+            @Html.TextBoxFor(m => m.vwdecimal0, new { @class = "form-control mypadding numformat calcval", @id = "idamount", maxlength = "20", @readonly = "readonly" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-3 text-right">Discount Amt</div>
+        <div class="col-sm-3">
+            @Html.TextBoxFor(m => m.vwdecimal4, new { @class = "form-control mypadding numformat calcval", @id = "iddsc", maxlength = "20"})
+        </div>
+    </div>
+    <div class="row">
+      
+        <div class="col-sm-3 text-right">Deposit Amount</div>
+        <div class="col-sm-3">
+            @if (ViewBag.action_flag == "RCreate")
+            {
+                @Html.TextBoxFor(m => m.vwdecimal5, new { @class = "form-control mypadding numformat calcval", @id = "idamountd", maxlength = "20", data_val = "true", data_val_required = "Please Input Deposit" })
+            }
+            else
+            {
+                @Html.TextBoxFor(m => m.vwdecimal5, new { @class = "form-control mypadding numformat calcval", @id = "idamountd", @readonly = "readonly" })
+            }
+           
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-sm-3 text-right">Balance Amount</div>
+        <div class="col-sm-3">
+            @Html.TextBoxFor(m => m.vwdecimal3, new { @class = "form-control mypadding numformat calcval", @id = "idamountb", maxlength = "20" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 text-right">Check-In Date</div>
+        <div class="col-sm-3">
+            @Html.TextBoxFor(m => m.vwstring6, new { @class = "form-control mypadding datet calcval", maxlength = "10", @id = "cinDate", data_val = "true", data_val_required = "Please Input Check In Date"  })
+        </div>
+        <div class="col-sm-2">
+            @Html.TextBoxFor(m => m.vwstring14, ViewBag.action_flag == "RCreate" ? (object) new { @class = "form-control mypadding", maxlength = "10", @id = "cinTime", data_val = "true", data_val_required = "Please Input Check In Time",@PlaceHolder="HH:MM AM" } : new { @disabled = "disabled", @class = "form-control mypadding", maxlength = "10", @id = "cinTime", data_val = "true", data_val_required = "Please Input Check In Time", @PlaceHolder = "HH:MM AM" })
+        </div>
+    </div>
+    @if (ViewBag.action_flag == "REdit")
+    {
+        @Html.HiddenFor(m => m.vwstring14)
+    }
+    <div class="row">
+        <div class="col-sm-3 text-right">Number of Nights</div>
+        <div class="col-sm-3">
+            @Html.TextBoxFor(m => m.vwint3, new { @class = "form-control mypadding calcval", @id = "noNights", maxlength = 3, data_val = "true", data_val_required = "Please input no of Nights" })
+
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-3 text-right">Total Amount</div>
+        <div class="col-sm-3">
+            @Html.TextBoxFor(m => m.vwdecimal1, new { @class = "form-control mypadding numformat calcval", @id = "idtotamountR", maxlength = "20", @readonly = "readonly" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 text-right">Check-Out Date</div>
+        <div class="col-sm-3">
+            @Html.TextBoxFor(m => m.vwstring7, new { @class = "form-control mypadding datet calcval", @id = "coutDate", maxlength = "10", data_val = "true", data_val_required = "Please input Checkout date" })
+        </div>
+    </div>
+    @Html.HiddenFor(m=>m.vwstring15)
+</div>
+
+
+

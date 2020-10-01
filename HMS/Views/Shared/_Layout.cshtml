@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+@{
+    HMS.Models.worksess worksess = (HMS.Models.worksess)Session["worksess"];
+
+}
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Hotel Management System</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    @Scripts.Render("~/bundles/jquerybundle")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    @Styles.Render("~/datatables/bundles/cssbundle")
+    @Scripts.Render("~/dataTables/bundles/js1bundle")
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+</head>
+    <body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="~/Dashboard/Index">@worksess.pname</a>
+            </div>
+            <div style="color: white;
+padding: 15px 50px 5px 50px;
+float: right;
+font-size: 16px;">
+                @worksess.processing_period &nbsp;
+        <form method="post" action="@Url.Action("LogOff", "home")" id="signoutfrm" style="display:none;">
+            @Html.AntiForgeryToken()
+        </form>
+        <a href="#" onclick="$('#signoutfrm').submit(); return false;" class="btn btn-danger square-btn-adjust">Logout</a>
+        </div>
+        </nav>
+        <!-- /. NAV TOP  -->
+        <nav class="navbar-default navbar-side" role="navigation">
+         @Html.Partial("_menu");
+        </nav>
+        <div id="page-wrapper">
+            <div id="page-inner">
+                @RenderBody()
+                </div>
+            </div>
+                <hr />
+                <footer>
+                    <p  style="color:crimson">&copy; @DateTime.UtcNow.ToLocalTime().Year - Bloyd Intelligi</p>
+                </footer>
+            </div>
+        @Html.Hidden("locat")
+            @Scripts.Render("~/bundles/jsuserbundle")
+        <script type="text/javascript">
+            window.applicationBaseUrl = @Html.Raw(HttpUtility.JavaScriptStringEncode(
+                new Uri(
+                           new Uri(this.Context.Request.Url.GetLeftPart(UriPartial.Authority)),
+                           Url.Content("~/")
+                       ).ToString(), true))
+            $("#locat").val(window.applicationBaseUrl);
+
+        </script>
+            @RenderSection("scripts", required: false)
+</body>
+</html>

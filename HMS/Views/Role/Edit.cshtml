@@ -1,0 +1,41 @@
+﻿@model HMS.Models.vw_genlay
+@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="panel-body">
+    <form class="form-horizontal" role="form" method="post" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary()
+
+        @if (ViewBag.action_flag == "Edit")
+        {
+            <div class="opt-title1"> Edit Roles</div>
+            @Html.Partial("_editButtons")
+        }
+        else
+        {
+            <div class="opt-title1"> Create Roles</div>
+            @Html.Partial("_submitButtons")
+        }
+
+
+        @Html.Partial("rol")
+
+        @Html.HiddenFor(m => m.vwint0)
+        @Html.Hidden("id_xhrt", "K")
+        @Html.HiddenFor(model => model.vwstring1, new { id = "snumber2" })
+    </form>
+</div>
+@section Scripts{
+<script type="text/javascript" src="@Url.Content("~/Scripts/js/puscript.js")"></script>
+<script>
+        //$('#btnx-right').click(function () {
+        //    $('#list2 option').prop('selected', true);
+        //});
+        $('#sub').click(function () {
+            $('#list2 option').prop('selected', true);
+        });
+</script>
+}
+}

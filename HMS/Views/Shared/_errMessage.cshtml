@@ -1,0 +1,6 @@
+﻿@model  HMS.Models.worksess
+@{
+    HMS.Models.worksess worksess = (HMS.Models.worksess)Session["worksess"];
+}
+<h3 style="color:red">@worksess.err_message</h3>
+

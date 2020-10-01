@@ -1,0 +1,56 @@
+﻿@using anchor1.Helpers
+@model  IEnumerable<HMS.Models.vw_genlay>
+
+@{
+    HMS.Models.worksess worksess = (HMS.Models.worksess)Session["worksess"];
+    ViewBag.Title = "Roles Definition";
+}
+Roles Definition
+<span>@Html.EncodedActionLink("New Role", "Create", null, new { pc = 1 }, new { title = "New Record" }) </span>
+<p />
+
+@Html.ValidationSummary()
+
+<div class="panel-body">
+    <div class="table-responsive">
+        <table class="hTable table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Role ID</th>
+                    <th>Description</th>
+                    <th>Initiated By</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.vwstring0</td>
+                        <td>@item.vwstring1</td>
+                        <td>@item.vwstring2</td>
+                        <td>
+                            @Html.EncodedActionLink("E", "Edit", null, new { key1 = @item.vwstring0 }, new { @class = "btn btn-warning btn-xs glyphicon glyphicon-pencil lgtime " })
+                        </td>
+                        <td><span class="btn btn-danger btn-xs deleteitem" data-keyg="@item.vwstring0"> <i class="glyphicon glyphicon-trash "></i> </span></td>
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+    </div>
+</div>
+@Html.Hidden("id_xhrt", "K")
+
+
+<div id="loader2" data-request-ajax2="@Url.Action("delete_list")"></div>
+
+@section Scripts {
+    <script>
+
+
+    </script>
+}

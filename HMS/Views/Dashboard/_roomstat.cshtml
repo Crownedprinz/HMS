@@ -1,0 +1,29 @@
+﻿@using anchor1.Helpers
+@model  IEnumerable<HMS.Models.vw_genlay>
+<div class="panel panel-default">
+        <div class="panel-heading">
+            Room Status
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Room Number</th>
+                            <th>Room Type</th>
+                            <th>Status</th>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.vwstring0</td>
+                                <td>@item.vwstring3</td>
+                                <td>@item.vwstring2</td>
+                                </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>

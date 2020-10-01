@@ -1,0 +1,149 @@
+﻿@model  HMS.Models.vw_genlay
+@{
+    ViewBag.Title = "Index";
+    HMS.Models.worksess worksess = (HMS.Models.worksess)Session["worksess"];
+}
+<div class="row">
+    <div class="col-md-12">
+        <h2>Overview</h2>
+        <h5>Welcome @worksess.username , Love to see you back. </h5>
+    </div>
+</div>
+<!-- /. ROW  -->
+<hr />
+<h4>Rooms</h4>
+<div class="row">
+    <div class="col-md-3 col-sm-6 col-xs-6">
+        <div class="panel panel-back noti-box">
+            <span class="icon-box bg-color-red set-icon">
+                <i class="fa fa-envelope-o"></i>
+            </span>
+            <div class="text-box">
+                <p class="main-text">@Model.vwint0</p>
+                <br />
+                <p class="text-muted">Total Rooms</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-6">
+        <div class="panel panel-back noti-box">
+            <span class="icon-box bg-color-green set-icon">
+                <i class="fa fa-bars"></i>
+            </span>
+            <div class="text-box">
+                <p class="main-text">@Model.vwint1</p>
+                <br />
+                <p class="row text-muted">Available Rooms</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-6">
+        <div class="panel panel-back noti-box">
+            <span class="icon-box bg-color-blue set-icon">
+                <i class="fa fa-bell-o"></i>
+            </span>
+            <div class="text-box">
+                <p class="main-text">@Model.vwint2</p>
+                <br />
+                <p class="text-muted">Occupied Rooms</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-12 col-xs-12 ">
+        <div class="panel ">
+            <div class="main-temp-back">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-6"> <i class="fa fa-cloud fa-3x"></i> Lagos, Nigeria </div>
+                        <div class="col-xs-6">
+                            <div class="text-temp"><h4>  @DateTime.UtcNow.ToLocalTime().ToLongDateString()</h4> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<!-- /. ROW  -->
+<hr />
+<h4>Guests</h4>
+<div class="row">
+    <div class="col-md-3 col-sm-6 col-xs-6">
+        <div class="panel panel-back noti-box">
+            <span class="icon-box bg-color-red set-icon">
+                <i class="fa fa-envelope-o"></i>
+            </span>
+            <div class="text-box">
+                <p class="main-text">@Model.vwint3</p>
+                <br />
+                <p class="text-muted">No of Guests</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-6">
+        <div class="panel panel-back noti-box">
+            <span class="icon-box bg-color-green set-icon">
+                <i class="fa fa-bars"></i>
+            </span>
+            <div class="text-box">
+                <p class="main-text">@Model.vwint4</p>
+                <br />
+                <p class="row text-muted">Males</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-6">
+        <div class="panel panel-back noti-box">
+            <span class="icon-box bg-color-blue set-icon">
+                <i class="fa fa-bell-o"></i>
+            </span>
+            <div class="text-box">
+                <p class="main-text">@Model.vwint5</p>
+                <br />
+                <p class="text-muted">Females</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-6">
+        <div class="panel panel-back noti-box">
+            <span class="icon-box bg-color-blue set-icon">
+                <i class="fa fa-bell-o"></i>
+            </span>
+            <div class="text-box">
+                <p class="main-text">@Model.vwint6</p>
+                <br />
+                <p class="text-muted">Checking out Today</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+<hr />
+<h4>Orders</h4>
+<div class="row">
+    <div class="col-md-3 col-sm-12 col-xs-12">
+        <div class="panel panel-primary text-center no-boder bg-color-green">
+            <div class="panel-body">
+                <i class="fa fa-comments-o fa-5x"></i>
+                <h4>6 Recent Order</h4>
+                <h4>See All Orders  </h4>
+            </div>
+            <div class="panel-footer back-footer-green">
+                <i class="fa fa-rocket fa-5x"></i>
+                Come to a place where our Dishes are amazing
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9 col-sm-12 col-xs-12">
+        @Html.Partial("_roomstat", (IEnumerable<HMS.Models.vw_genlay>)ViewBag.x1)
+       
+    </div>
+</div>
+
+
+
+

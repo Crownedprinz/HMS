@@ -1,0 +1,69 @@
+﻿@model  IEnumerable<HMS.Models.vw_genlay>
+@using anchor1.Helpers
+ 
+@{
+    ViewBag.Title = "Index";
+    HMS.Models.worksess worksess = (HMS.Models.worksess)Session["worksess"];
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Ordering
+        <span>@Html.EncodedActionLink("Create", "Create", null, new { pc = 1 }, new { title = "New Record" }) </span>
+    </div>
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover">
+
+                <thead>
+                    <tr>
+                        <th>Item ID</th>
+                        <th>Item Name</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Purpose</th>
+                        <th>Discount</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.vwint0</td>
+                            <td>@item.vwstring1</td>
+                            <td>@item.vwstring2</td>
+                            <td class="numformat">@item.vwdecimal0</td>
+                            <td>@item.vwint1</td>
+                            @if(@item.vwstring3 == "B") {
+                            <td>Bar</td>
+                            }
+                            else if (@item.vwstring3 == "K")
+                            {
+                                <td>Kitchen</td>
+                            }
+                            <td  class="numformat">@item.vwdecimal1</td>
+                            <td>
+                                @Html.EncodedActionLink("E", "Edit", null, new { key1 = @item.vwint0 }, new { @class = "btn btn-warning btn-xs glyphicon glyphicon-pencil" })
+                            </td>
+                            <td><span class="btn btn-danger btn-xs deleteitem" data-keyg="@item.vwint0"> <i class="glyphicon glyphicon-trash "></i> </span></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@Html.Hidden("id_xhrt", "K")
+
+<div id="loader2" data-request-ajax2="@Url.Action("delete_list")"></div>
+@section Scripts {
+    <script>
+    </script>
+}
+
+
+
+

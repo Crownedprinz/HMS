@@ -1,0 +1,154 @@
+﻿@model HMS.Models.vw_genlay
+@using anchor1.Helpers;
+@{
+    ViewBag.Title = "REdit";
+}
+
+<div class="panel-body">
+    <form class="form-horizontal" role="form" method="post" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary()
+
+        @if (ViewBag.action_flag == "REdit")
+        {
+            <div class="opt-title1"> Edit Guest Reservation</div>
+            <button type="submit" class="btn btn-success btn-default tabvalid valshow" style="width:150px" value="1" name="upsub">Update</button>
+            <span>&nbsp; &nbsp; &nbsp;</span>
+            @Html.EncodedActionLink("Cancel", "Reservation", null, new { pc = "1" }, new { @class = "btn btn-primary", @style = " width : 150px; " })
+            <br />
+            <hr />
+        }
+        else
+        {
+            <div class="opt-title1"> Create Guest Reservation</div>
+
+            <button type="submit" class="btn btn-success btn-default tabvalid" style="width:150px" id="sub">Submit</button>
+            <span>&nbsp; &nbsp; &nbsp;</span>
+            @Html.EncodedActionLink("Back To List", "Reservation", null, new { pc = "1" }, new { @class = "btn btn-primary btn-default ", @style = " width : 150px; " })
+            <span>&nbsp; &nbsp; &nbsp;</span>
+           <button type="reset" class="btn btn-primary" style="width:150px">Cancel</button>
+            <br />
+            <hr />
+        }
+
+        @Html.Partial("rcin")
+
+        @Html.HiddenFor(m => m.vwint0)
+        @Html.Hidden("id_xhrt", "K")
+    </form>
+
+    <div id="loader1" data-request-ajax1="@Url.Action("get_cust")"></div>
+    <div id="loader2" data-request-ajax2="@Url.Action("get_amount")"></div>
+</div>
+@section Scripts{
+    <script>
+        $("#id_cust").change(function () {
+            var URL = $('#loader1').data('request-ajax1');
+            var URLext = $('#id_cust').val();
+            URL = $.trim(URL);
+            URLext = $.trim(URLext);
+
+            URL = URL + "/" + URLext;
+            $.ajax({
+                url: URL,
+                type: 'Post',
+                error: function (xhr, status, error) {
+                    alert("Error: " + xhr.status + " - " + error + " - " + URL);
+                },
+                success: function (data) {
+                    var tasks = '';
+                    $.each(data, function (i, state) {
+                        tasks = state.Text;
+                        if (state.Value == "idtitle")
+                            $("#id_titles").val(tasks);
+                        if (state.Value == "cfname")
+                            $("#fname").val(tasks);
+                        if (state.Value == "clname")
+                            $("#lname").val(tasks);
+                        if (state.Value == "cgender") {
+                            if(tasks=="M")
+                                $("#yes").val(tasks);
+                            else
+                                $("#no").val(tasks);
+                        }
+
+                        if (state.Value == "caddress")
+                            $("#caddress").val(tasks);
+                        if (state.Value == "cphone")
+                            $("#cphone").val(tasks);
+
+                    });
+
+                }
+
+            });
+
+
+        });
+
+        $("#idroom").change(function () {
+            var URL = $('#loader2').data('request-ajax2');
+            var URLext = $('#idroom').val();
+            var getn = $('#noNights').val();
+            URL = $.trim(URL);
+            URLext = $.trim(URLext) + '[' + $.trim(getn);
+
+            URL = URL + "/" + URLext;
+            $.ajax({
+                url: URL,
+                type: 'Post',
+                error: function (xhr, status, error) {
+                    alert("Error: " + xhr.status + " - " + error + " - " + URL);
+                },
+                success: function (data) {
+                    var tasks = '';
+                    $.each(data, function (i, state) {
+                        tasks = state.Text;
+                        if (state.Value == "ramount")
+                            $("#idamount").val(tasks);
+                        if (state.Value == "tamount")
+                            $("#idtotamount").val(tasks);
+
+                    });
+
+                }
+
+            });
+            //var amount = 0;
+            //var nonights = 0;
+            // amount = $('#idamount').val();
+            // nonights = $('#noNights').val();
+            // var totamt = parseFloat((amount).replace(/,/g, '')) * nonights
+            //$('#idtotalamount').val(totamt);
+
+
+        });
+        $(".calcval").change(function () {
+
+            var amount = 0;
+            var nonights = 0;
+             amount = $('#idamount').val();
+             nonights = parseInt($('#noNights').val(), 10);
+             debamt = $('#idamountd').val();
+             balamt = $('#idamountb').val();
+             //$('#idtotamount').val(parseFloat((amount).replace(/,/g, '')) * nonights);
+             $('#idtotamountR').val(parseFloat((debamt).replace(/,/g, '')) + parseFloat((balamt).replace(/,/g, '')));
+             var from = $('#cinDate').val().split("/")
+            
+             var date = new Date(from[2], from[1] - 1, from[0])
+            var newdate = new Date(date.getTime() + 24 * 60 * 60 * 1000 * nonights)
+            var year = newdate.getFullYear();
+            var month = (1 + newdate.getMonth()).toString();
+           month = month.length > 1 ? month : '0' + month;
+            var day = newdate.getDate().toString();
+            day = day.length > 1 ? day : '0' + day;
+            var newday = day + '/' + month + '/' + year
+            $('#coutDate').val(newday);
+
+
+
+        });
+
+
+    </script>
+}

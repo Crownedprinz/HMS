@@ -1,0 +1,55 @@
+﻿@model HMS.Models.vw_genlay
+
+
+@using (Html.BeginForm())
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    @Html.Partial("_ProcessBtn")
+
+    <fieldset>
+        <div class="container-fluid table-edit">
+
+            <div class="row">
+                <div class="col-sm-3 col-sm-text-right">@Model.vwstring1</div>
+                <div class="col-sm-3 ">
+                    @Html.DropDownList("vwstring4", ViewBag.codequery as SelectList, "", new { @class = "form-control mypadding " })
+                </div>
+                <div class="col-sm-1 text-center">To</div>
+                <div class="col-sm-3 ">
+                    @Html.DropDownList("vwstring5", ViewBag.codequery as SelectList, "", new { @class = "form-control mypadding " })
+                </div>
+            </div>
+            @if (Model.vwstring0 == "04")
+            {
+                <div class="row">
+                    <div class="col-sm-3 col-sm-text-right"> Transaction Date </div>
+                    <div class="col-sm-3 ">
+                        @Html.TextBoxFor(m => m.vwstring6, new { @class = "form-control datet mypadding", @maxlength = "10" })
+                    </div>
+                    <div class="col-sm-1 text-center">To</div>
+                    <div class="col-sm-3 ">
+                        @Html.TextBoxFor(m => m.vwstring7, new { @class = "form-control datet mypadding", @maxlength = "10" })
+                    </div>
+                </div>
+            }
+            @if (@ViewBag.showdate == "Y")
+            {
+                <div class="row">
+                    <div class="col-sm-3 col-sm-text-right"> Transaction Date </div>
+                    <div class="col-sm-3 ">
+                        @Html.TextBoxFor(m => m.vwstring6, new { @class = "form-control datet mypadding", @maxlength = "10" })
+                    </div>
+                    <div class="col-sm-1 text-center">To</div>
+                    <div class="col-sm-3 ">
+                        @Html.TextBoxFor(m => m.vwstring7, new { @class = "form-control datet mypadding", @maxlength = "10" })
+                    </div>
+                </div>
+            }
+        </div>
+
+        @Html.HiddenFor(m => m.vwstring0)
+    </fieldset>
+}

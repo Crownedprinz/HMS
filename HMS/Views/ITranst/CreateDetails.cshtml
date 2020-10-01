@@ -1,0 +1,67 @@
+﻿@model  HMS.Models.vw_genlay
+@using anchor1.Helpers;
+@{
+    HMS.Models.worksess worksess = (HMS.Models.worksess)Session["worksess"];
+    HMS.Models.queryhead qheader = (HMS.Models.queryhead)Session["qheader"];
+    ViewBag.Title = "Ordering";
+}
+
+<div class="panel-body">
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary()
+        <span class="opt-title1"> Restock  </span>
+        <br />
+
+        @Html.Partial("Tran")
+
+
+        @Html.HiddenFor(m => m.vwint2)
+        @Html.Hidden("id_xhrt", "S", new { id = "id_xhrt" })
+
+    }
+</div>
+<div id="loader4" data-request-ajax4="@Url.Action("get_items")"></div>
+<div id="loader5" data-request-ajax5="@Url.Action("delete_detail")"></div>
+@section Scripts {
+   <script>
+        $(function () {
+
+            $("#item_id").change(function () {
+                var URL = $('#loader4').data('request-ajax4');
+                var URLext = $('#item_id').val();
+                URL = $.trim(URL);
+                URLext = $.trim(URLext);
+
+                URL = URL + "/" + URLext;
+                $.ajax({
+                    url: URL,
+                    type: 'Post',
+                    error: function (xhr, status, error) {
+                        alert("Error: " + xhr.status + " - " + error + " - " + URL);
+                    },
+                    success: function (data) {
+                        var tasks = '';
+                        $.each(data, function (i, state) {
+                            tasks = state.Text;
+                            if (state.Value == "item_uom") {
+                                $("#id_unit").html(tasks);
+                            }
+                            if (state.Value == "item_qty") {
+                                $("#id_hqty").html(tasks);
+                            }
+                           });
+
+                    }
+
+                });
+
+
+            });
+
+        });
+
+
+</script>
+    }

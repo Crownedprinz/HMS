@@ -1,0 +1,47 @@
+﻿@using anchor1.Helpers
+@model  IEnumerable<HMS.Models.vw_genlay>
+  @{ 
+      HMS.utilities.hutility util = new HMS.utilities.hutility();
+  }
+
+
+<div class="panel-body">
+    <div class="table-responsive">
+        <table class="hTable table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>line No </th>
+                    <th>item ID</th>
+                    <th>item Name</th>
+                    <th>Purchase Date</th>
+                    <th>Rate </th>
+                    <th>Quantity </th>
+                    <th>Total Amount </th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.vwint1</td>
+                        <td>@item.vwstring10</td>
+                        <td>@item.vwstring0</td>
+                        <td>@util.date_slash(@item.vwstring2)</td>
+                <td class="numformat">@item.vwdecimal0</td>
+                <td>@item.vwint2</td>
+                <td class="numformat">@item.vwdecimal3</td>
+                <td>
+                    @Html.EncodedActionLink("E", "EditDetails", null, new { key1 = @item.vwint1 }, new { @class = "btn btn-warning btn-xs glyphicon glyphicon-pencil lgtime " })
+                </td>
+                <td><span class="btn btn-danger btn-xs deleteitemlist" data-keyg="@item.vwint0&@item.vwint1"> <i class="glyphicon glyphicon-trash "></i> </span></td>
+            </tr>
+                }
+
+            </tbody>
+
+        </table>
+        </div>
+    </div>

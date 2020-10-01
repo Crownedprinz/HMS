@@ -1,0 +1,46 @@
+﻿@model HMS.Models.vw_genlay
+@{
+    ViewBag.Title = "cus";
+}
+
+<div>
+    <div class="row">
+        @if (ViewBag.action_flag == "Edit")
+        {
+            <div class="col-sm-3 text-right">User ID</div>
+                        <div class="col-sm-3">
+                            @Html.TextBoxFor(m => m.vwstring0, new { @disabled = "disabled", @maxlength = 10 })
+                        </div>
+                        @Html.HiddenFor(m => m.vwstring0);
+
+        }
+        else
+        {
+            <div class="col-sm-3 text-right">User ID</div>
+            <div class="col-sm-3">
+                @Html.TextBoxFor(m => m.vwstring0, new { @class = "form-control mypadding ", @id = "userid" })
+  </div>
+        }
+
+    </div>
+    <div class="row">
+        <div class="col-sm-3 text-right">Select Staff</div>
+        <div class="col-sm-3">
+            @Html.DropDownListFor(m => m.vwint0, ViewBag.staff as SelectList, "select", new { @class = "form-control mypadding", @id = "usern", data_val = "true", data_val_required = "Staff Name is required" })
+</div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 text-right">Role</div>
+        <div class="col-sm-3">
+            @Html.DropDownListFor(m => m.vwstring1, ViewBag.role as SelectList, "select", new { @class = "form-control mypadding", @id = "role", data_val = "true", data_val_required = "Role is required" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 text-right">Password</div>
+        <div class="col-sm-3">
+            <div class="col-sm-">@Html.PasswordFor(model => Model.vwstring2, new { @maxlength = "50", @class = "form-control mypadding" })  </div>
+        </div>
+    </div>
+    @Html.HiddenFor(m=>m.vwstring5)
+</div>
+

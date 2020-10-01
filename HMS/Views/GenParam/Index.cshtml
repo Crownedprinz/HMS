@@ -1,0 +1,60 @@
+﻿@model  IEnumerable<HMS.Models.vw_genlay>
+@using anchor1.Helpers
+@{
+    ViewBag.Title = "Room Type";
+    HMS.Models.worksess worksess = (HMS.Models.worksess)Session["worksess"];
+    string ptype = worksess.temp7.ToString();
+}
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        @worksess.ptitle
+        <span>@Html.EncodedActionLink("Create", "Create", null, new { pc = 1 }, new { title = "New Record" }) </span>
+    </div>
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover">
+
+                <thead>
+                    <tr>
+                        <th>@worksess.temp1</th>
+                        <th>@worksess.temp2</th>
+                        <th>@worksess.temp3</th>
+                        @if (ptype == "RMT")
+                        {
+                            <th>@worksess.temp4</th>
+                        }
+                        <th> Edit</th>
+                        <th> Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.vwstring0</td>
+                            <td>@item.vwstring1</td>
+                            <td>@item.vwstring2</td>
+                            @if (ptype == "RMT")
+                            {
+                                <td class="numformat">@item.vwstring3</td>
+                            }
+                            <td>
+                                @Html.EncodedActionLink("E", "Edit", null, new { key1 = ptype, key2 = @item.vwstring0 }, new { @class = "btn btn-warning btn-xs glyphicon glyphicon-pencil" })
+                            </td>
+                            <td><span class="btn btn-danger btn-xs deleteitem" data-keyg="@item.vwstring0"> <i class="glyphicon glyphicon-trash "></i> </span></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@Html.Hidden("id_xhrt", "K")
+
+<div id="loader2" data-request-ajax2="@Url.Action("delete_list")"></div>
+@section Scripts {
+    <script>
+    </script>
+}

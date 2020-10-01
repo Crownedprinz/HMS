@@ -1,0 +1,9 @@
+﻿@model HMS.Models.worksess
+    @{ 
+        HMS.Models.worksess worksess = (HMS.Models.worksess)Session["worksess"];
+    }
+<div id="dialog" title="Basic dialog">
+    <p>
+    @Html.Raw(worksess.idrep)
+    </p>
+</div>

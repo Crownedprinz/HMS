@@ -1,0 +1,55 @@
+﻿@using anchor1.Helpers
+@model  HMS.Models.vw_genlay
+
+@{
+    HMS.Models.worksess worksess = (HMS.Models.worksess)Session["worksess"];
+    HMS.Models.vw_genlay glayhead = (HMS.Models.vw_genlay)ViewBag.x2;
+    string cr_flag = ViewBag.action_flag;
+    //string ptype = worksess.temp0.ToString();
+}
+
+<div class="container-fluid">
+    <div class="row">
+            <div id="details">
+                <br />
+                        <div class="row ">
+                            <div class="col-sm-3 text-right "> Item Name  </div>
+                            <div class="col-sm-3">
+                                @Html.DropDownListFor(m => m.vwstring1, ViewBag.item as SelectList, "", new { @class = "form-control mypadding ", @id = "item_id", data_val = "true", data_val_required = "Item ID should be selected" })
+                            </div>
+                            <div class="col-sm-8 col-sm-offset-3">
+                                Unit of Measure : &nbsp;&nbsp; <span id="id_unit" class="color-blue"></span>
+                                &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
+                                Quantity at Hand : &nbsp;&nbsp; <span id="id_hqty" class="color-blue"></span>
+                            </div>
+
+                        </div>
+                        <div class="row ">
+                            <div class="col-sm-3 text-right "> Transaction Date  </div>
+                            <div class="col-sm-2">
+                                @Html.TextBoxFor(m => m.vwstring3, new { @class = "form-control datet mypadding", @maxlength = "10", data_val = "true", data_val_required = "Transaction Date is required" })
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-sm-3 text-right "> Quantity </div>
+                            <div class="col-sm-3">
+                                @Html.TextBoxFor(m => m.vwint1, new { @class = "form-control  mypadding", @maxlength = "10", @id = "quant",data_val = "true", data_val_required = "Quantity is required" })
+                            </div>
+                        </div>
+
+                <br />
+
+                    <div class="col-sm-2 col-sm-offset-3">
+                        <button type="submit" class="btn btn-success valshow " name="commandn" value="detailsub" style="width:100px">Create Entry</button>
+                    </div>
+                    <div class="col-sm-2 ">
+                        @Html.EncodedActionLink("Cancel", "CreateDetails", null, new { xy = "1" }, new { @class = "btn  btn-primary", @style = " width : 100px; " })
+                    </div>
+                
+
+                <br />
+                <hr />
+                @Html.Partial("_list", (IEnumerable<HMS.Models.vw_genlay>)ViewBag.x1)
+            </div>
+    </div>
+</div>

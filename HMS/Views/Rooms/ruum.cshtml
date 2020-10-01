@@ -1,0 +1,59 @@
+﻿@model HMS.Models.vw_genlay
+@{
+    ViewBag.Title = "Rooms";
+}
+
+<div>
+    <div class="row">
+        <div class="col-sm-3 text-right">Room ID</div>
+        <div class="col-sm-3">
+
+            @Html.TextBoxFor(m => m.vwstring0, ViewBag.action_flag == "Create" ? (object)new { @class = "form-control mypadding ", @maxlength = 10, data_val = "true", data_val_required = "Room Id is required " } : new { @class = "form-control mypadding readonly-color", @disabled = "disabled" })
+            @Html.ValidationMessageFor(m => m.vwstring0)
+            @Html.HiddenFor(m =>m.vwstring0)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 text-right">Room Description</div>
+        <div class="col-sm-3">
+            @Html.TextBoxFor(m => m.vwstring1, new { @class = "form-control mypadding ", maxlength = 50 })
+            @Html.ValidationMessageFor(m => m.vwstring1)
+        </div>
+    </div>
+    <div class="row ">
+        <div class="col-sm-3 text-right">Room Status</div>
+        <div class="col-sm-7 myradioq">
+            @Html.RadioButtonFor(m => m.vwstring2, "A", new { @id = "yes" })
+            <label for="yes">Available</label>
+            @Html.RadioButtonFor(m => m.vwstring2, "N", new { @id = "no" })
+            <label for="no">Not Available</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 text-right">Type</div>
+        <div class="col-sm-3">
+            @Html.DropDownListFor(m=>m.vwstring3, ViewBag.rmtype as SelectList,"Select Room Type", new { @class = "form-control mypadding" , @id="roomtype"})
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-3 text-right">Price</div>
+        <div class="col-sm-3">
+            @Html.TextBoxFor(m => m.vwdecimal0, new { @class = "form-control mypadding numformat ", maxlength = "20" , @id= "tprice"})
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 text-right">Max. No. of Adults Allowed</div>
+        <div class="col-sm-3">
+            @Html.TextBoxFor(m => m.vwint0, new { @class = "form-control mypadding", maxlength = "5" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 text-right">Max. No. of Kids Allowed</div>
+        <div class="col-sm-3">
+            @Html.TextBoxFor(m => m.vwint1, new { @class = "form-control mypadding", maxlength = "5" })
+        </div>
+    </div>
+
+</div>
+

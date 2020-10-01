@@ -1,0 +1,117 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/*report viewer*/
+#viewerContainer {
+    width: 100%;
+    height: 600px;
+    border: 1px solid gray;
+}
+
+html,body{
+position: relative;
+        top: -25px; 
+}
+body{
+  height:100vh;
+  
+}   
+
+/* info and errors */
+.message-info {
+    border: 1px solid;
+    clear: both;
+    padding: 10px 20px;
+}
+
+.message-error {
+    clear: both;
+    color: #e80c4d;
+    font-size: 120%;
+    font-weight: bold;
+    margin: 20px 0 10px 0;
+}
+
+.message-success {
+    color: #7ac0da;
+    font-size: 1.3em;
+    font-weight: bold;
+    margin: 20px 0 10px 0;
+}
+
+.error {
+    color: #e80c4d;
+}
+
+ .basket1 td
+     {         
+         padding : 2px;
+         padding-left : 1em;
+     }
+
+ /* styles for validation helpers */
+.field-validation-error {
+    color: #e80c4d;
+    font-weight: bold;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 1px solid #e80c4d;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #e80c4d;
+    font-weight: bold;
+    font-size: 120%;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+.marq1
+{
+    /*background-color :#dff0d8;*/
+    width : 100%;
+    text-align : center;
+    top : 0;
+}
+
+.byemess{
+    font-size : 300%;
+    color : black;
+}
+.relogin-text{
+    font-size : 150%;
+}
+

@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Hotel Management System</title>
+    @Scripts.Render("~/bundles/jquerybundle")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/datatables/bundles/cssbundle")
+    @Scripts.Render("~/dataTables/bundles/js1bundle")
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+</head>
+    <body style="background-color: #E2E2E2;">
+    <div id="container">
+                @RenderBody()
+                </div>
+                <hr />
+                <footer>
+                    <p style="color:crimson">&copy; @DateTime.UtcNow.ToLocalTime().Year - Bloyd Intelligi</p>
+                </footer>
+        @Html.Hidden("locat")
+            @Scripts.Render("~/bundles/jsuserbundle")
+        <script type="text/javascript">
+            window.applicationBaseUrl = @Html.Raw(HttpUtility.JavaScriptStringEncode(
+                new Uri(
+                           new Uri(this.Context.Request.Url.GetLeftPart(UriPartial.Authority)),
+                           Url.Content("~/")
+                       ).ToString(), true))
+            $("#locat").val(window.applicationBaseUrl);
+
+        </script>
+            @RenderSection("scripts", required: false)
+</body>
+</html>
